@@ -36,8 +36,8 @@ jobs:
             exit 1
           fi
 
-      - name: Run Playwright tests
-        run: npx playwright test --project=chromium --workers=1
+           - name: Run Playwright tests
+        run: npx playwright test --project=chromium
         env:
           SIAKAD_USERNAME: ${{ secrets.SIAKAD_USERNAME }}
           SIAKAD_PASSWORD: ${{ secrets.SIAKAD_PASSWORD }}

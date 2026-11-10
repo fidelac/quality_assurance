@@ -5,14 +5,26 @@ test('Pengujian alur akademik mahasiswa SIAKAD', async ({ page }) => {
   // 1. Membuka halaman SIAKAD
   await page.goto('https://siakad.polinema.ac.id/');
 
-  // 2. Login
-  await page.getByRole('textbox', { name: 'Username' })
-    .fill(process.env.SIAKAD_USERNAME!);
+ // 2. Login
+await page.getByRole('textbox', { name: 'Username' })
+  .fill(process.env.SIAKAD_USERNAME!);
 
-  await page.getByRole('textbox', { name: 'Password' })
-    .fill(process.env.SIAKAD_PASSWORD!);
+await page.getByRole('textbox', { name: 'Password' })
+  .fill(process.env.SIAKAD_PASSWORD!);
 
-  await page.getByRole('button', { name: /Login/ }).click();
+await page.getByRole('button', { name: /Login/ }).click();
+
+// DEBUG: menunggu halaman setelah login
+await page.waitForTimeout(5000);
+
+// Menyimpan screenshot
+await page.screenshot({
+  path: 'test-results/after-login.png',
+  fullPage: true
+});
+
+console.log('URL setelah login:', page.url());
+console.log('Judul halaman:', await page.title());
 
   // 3. Memastikan berhasil masuk
 await expect(

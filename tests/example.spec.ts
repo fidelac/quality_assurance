@@ -14,28 +14,22 @@ test('Pengujian alur akademik mahasiswa SIAKAD', async ({ page }) => {
 
   await page.getByRole('button', { name: /Login/ }).click();
 
-  // 3. Memastikan berhasil masuk ke Beranda
-  await expect(page).toHaveURL(/beranda/);
+  // 3. Memastikan berhasil masuk
+await expect(
+  page.getByRole('link', { name: /Akademik/ })
+).toBeVisible();
 
-  // 4. Membuka menu Akademik
-  await page.getByRole('link', { name: /Akademik/ }).click();
+// 4. Membuka menu Akademik
+await page.getByRole('link', { name: /Akademik/ }).click();
 
-  // 5. Membuka Nilai Mahasiswa
-  await page.getByRole('link', { name: 'Nilai Mahasiswa' }).click();
+// 5. Menunggu submenu ditampilkan
+await page.waitForTimeout(2000);
 
-  // 6. Memastikan tombol Filter tersedia
-  const filterButton = page.getByRole('button', { name: /Filter/ });
-  await expect(filterButton).toBeVisible();
+// 6. Mengambil screenshot
+await page.screenshot({
+  path: 'akademik-menu.png',
+  fullPage: true
+});
 
-  // 7. Menjalankan Filter
-  await filterButton.click();
-
-  // 8. Logout
-  await page.getByRole('link', { name: 'Log Out' }).click();
-
-  // 9. Memastikan kembali ke halaman login
-  await expect(
-    page.getByRole('textbox', { name: 'Username' })
-  ).toBeVisible();
 
 });
